@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('image_url');
             $table->decimal('price');
             $table->text('description');
+            $table->boolean('disabled')->default(false);
             $table->timestamps();
         });
     }

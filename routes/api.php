@@ -18,3 +18,5 @@ Route::post('/accomodation', [Accomodations::class, 'createAccomodation']);
 Route::put('/accomodation/{id}',[Accomodations::class, 'updateAccomodation']);
 
 Route::delete('/accomodation/{id}',[Accomodations::class, 'destroyAccomodation']);
+
+Route::patch('/accomodation/{id}',[Accomodations::class, 'patchAccomodation']);

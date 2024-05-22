@@ -9,13 +9,14 @@ class Accomodation extends Model
 {
     use HasFactory;
     
-    protected $filable = [
+    protected $fillable = [
         'name',
         'address',
         'capacity',
         'rooms',
         'image_url',
         'price',
-        'description'
+        'description',
+        'disabled'
     ];
 }
