@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Accomodation;
+use Illuminate\Support\Facades\Validator;
 
 class Accomodations extends Controller
 {
@@ -52,6 +53,25 @@ class Accomodations extends Controller
     }
 
     public function createAccomodation(Request $request){
+        
+        $validator = Validator::make($request->all(), [
+            "name" => "required",
+            "address" => "required",
+            "capacity" => "required",
+            "rooms" => "required",
+            "image_url" => "required",
+            "price" => "required",
+            "description" => "required",
+        ]);
+
+        if($validator->fails()){
+            return response()->json([
+                'status' => false,
+                'message' => 'Validator Error!',
+                'data' => $validator->errors()
+            ], 409);
+        }
+
         $accomodationDatabase = Accomodation::where('name', $request->name)->first();
         if($accomodationDatabase){
             return response()->json([
