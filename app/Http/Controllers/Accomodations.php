@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Accomodation;
-use Illuminate\Support\Facades\Validator;
+use App\Http\Requests\AccomodationRequest;
 
 class Accomodations extends Controller
 {
@@ -52,9 +52,18 @@ class Accomodations extends Controller
         ], 200);
     }
 
-    public function createAccomodation(Request $request){
+    public function createAccomodation(AccomodationRequest $request){
         
-        $validator = Validator::make($request->all(), [
+        /*$data = new AccomodationRequest();
+        $data->name = $request->name;
+        $data->address = $request->address;
+        $data->capacity = $request->capacity;
+        $data->rooms = $request->rooms;
+        $data->image_url = $request->image_url;
+        $data->price = $request->price;
+        $data->description = $request->description;*/
+
+        /*$validator = Validator::make($request->all(), [
             "name" => "required",
             "address" => "required",
             "capacity" => "required",
@@ -70,7 +79,7 @@ class Accomodations extends Controller
                 'message' => 'Validator Error!',
                 'data' => $validator->errors()
             ], 409);
-        }
+        }*/
 
         $accomodationDatabase = Accomodation::where('name', $request->name)->first();
         if($accomodationDatabase){
@@ -78,10 +87,19 @@ class Accomodations extends Controller
                 'status' => false,
                 'message' => 'Accomodation already exists!',
                 'data' => 'Not Data'
-            ], 409); 
+            ], 409);
         }
         
-        $accomodation = Accomodation::create($request->all()); //Insert Into
+        try {
+            
+            $accomodation = Accomodation::create($request->all()); //Insert Into
+        } catch (\Throwable $e) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Accomodation already exists!',
+                'data' => $e->getMessage()
+            ], 500);
+        }
         return response()->json([
             'status' => true,
             'message' => 'New accomodation created!',
