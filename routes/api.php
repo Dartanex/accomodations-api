@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Accomodations;
+use App\Http\Controllers\Authentication;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -20,3 +21,6 @@ Route::put('/accomodation/{id}',[Accomodations::class, 'updateAccomodation']);
 Route::delete('/accomodation/{id}',[Accomodations::class, 'destroyAccomodation']);
 
 Route::patch('/accomodation/{id}',[Accomodations::class, 'patchAccomodation']);
+
+Route::post('/register',[Authentication::class, 'register']);
+Route::post('/login',[Authentication::class, 'login']);

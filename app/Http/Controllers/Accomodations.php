@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Accomodation;
+use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\AccomodationRequest;
 
 class Accomodations extends Controller
